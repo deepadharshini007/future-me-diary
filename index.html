@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Shades of My Life</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:"Segoe UI",sans-serif;
+}
+
+/* BACKGROUND */
+body{
+  background:linear-gradient(180deg,#0f172a,#1e1b4b,#312e81,#1e1b4b);
+  background-size:400% 400%;
+  animation:bgMove 20s ease infinite;
+  color:#e5e7eb;
+  overflow-x:hidden;
+}
+
+@keyframes bgMove{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+/* HERO */
+.hero{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:20px;
+}
+
+.hero h1{
+  font-size:3.2rem;
+  background:linear-gradient(to right,#60a5fa,#c084fc);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.hero p{
+  margin-top:15px;
+  opacity:.85;
+  font-size:1.1rem;
+}
+
+/* FLOW */
+.flow{
+  max-width:1000px;
+  margin:auto;
+  padding:80px 20px;
+}
+
+/* MOMENTS */
+.moment{
+  max-width:420px;
+  margin:80px 0;
+  padding:25px 30px;
+  border-radius:25px;
+  background:rgba(255,255,255,.08);
+  backdrop-filter:blur(14px);
+  box-shadow:0 20px 40px rgba(0,0,0,.3);
+  opacity:0;
+  transform:translateY(40px);
+  transition:all 1s ease;
+  animation:float 6s ease-in-out infinite;
+}
+
+.moment.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+.moment h2{
+  color:#c7d2fe;
+  margin-bottom:10px;
+}
+
+.moment p{
+  line-height:1.6;
+  opacity:.9;
+}
+
+.left{margin-right:auto}
+.right{margin-left:auto}
+.center{margin:auto;text-align:center}
+
+/* FLOAT */
+@keyframes float{
+  0%{transform:translateY(0)}
+  50%{transform:translateY(-12px)}
+  100%{transform:translateY(0)}
+}
+
+/* DIARY CENTER */
+.diary{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:120px 20px;
+}
+
+/* LOCK */
+.diary-lock{
+  max-width:400px;
+  text-align:center;
+  padding:40px;
+  background:rgba(255,255,255,.06);
+  backdrop-filter:blur(14px);
+  border-radius:25px;
+  box-shadow:0 20px 40px rgba(0,0,0,.4);
+}
+
+.diary-lock input{
+  width:100%;
+  padding:12px;
+  margin:15px 0;
+  border:none;
+  border-radius:20px;
+  outline:none;
+  text-align:center;
+}
+
+.diary-lock button{
+  padding:10px 30px;
+  border:none;
+  border-radius:20px;
+  background:linear-gradient(to right,#60a5fa,#c084fc);
+  color:white;
+  cursor:pointer;
+}
+
+/* DIARY PAGE */
+.diary-page{
+  display:none;
+  max-width:600px;
+  padding:50px;
+  background:rgba(255,255,255,.07);
+  backdrop-filter:blur(16px);
+  border-radius:30px;
+  box-shadow:0 30px 60px rgba(0,0,0,.4);
+  line-height:1.9;
+  text-align:center;
+}
+
+#diaryText::after{
+  content:"|";
+  animation:blink 1s infinite;
+}
+
+@keyframes blink{
+  0%{opacity:1}
+  50%{opacity:0}
+  100%{opacity:1}
+}
+
+.error{
+  margin-top:10px;
+  font-size:.85rem;
+  color:#fca5a5;
+}
+
+/* FOOTER */
+footer{
+  text-align:center;
+  padding:40px 20px;
+  opacity:.7;
+  font-size:.9rem;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <h1>Shades of My Life</h1>
+  <p>A quiet journey through moments that shaped me</p>
+</section>
+
+<!-- LIFE MOMENTS -->
+<section class="flow">
+
+  <div class="moment left">
+    <h2>🌱 Childhood</h2>
+    <p>I began quietly, unaware of how far I would go.</p>
+  </div>
+
+  <div class="moment right">
+    <h2>🎒 School</h2>
+    <p>Some lessons stayed longer than books.</p>
+  </div>
+
+  <div class="moment center">
+    <h2>🎓 Growth</h2>
+    <p>I changed slowly, honestly, and deeply.</p>
+  </div>
+
+  <div class="moment left">
+    <h2>💭 Dreams</h2>
+    <p>Still dreaming, but now with direction.</p>
+  </div>
+
+  <div class="moment right">
+    <h2>🚀 Future Me</h2>
+    <p>I am walking towards you, one step at a time.</p>
+  </div>
+
+</section>
+
+<!-- DIARY -->
+<section class="diary">
+
+  <div class="diary-lock" id="lockBox">
+    <p>This page is written for a future version of me.</p>
+    <input type="password" id="password" placeholder="enter the word you trust">
+    <button onclick="unlockDiary()">open</button>
+    <p class="error" id="errorMsg"></p>
+  </div>
+
+  <div class="diary-page" id="diaryPage">
+    <p id="diaryText"></p>
+  </div>
+
+</section>
+
+<footer>
+  <p>crafted quietly by me 💙💜</p>
+</footer>
+
+<script>
+/* SCROLL FADE */
+const moments=document.querySelectorAll('.moment');
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add('show');
+    }
+  });
+});
+moments.forEach(m=>observer.observe(m));
+
+/* DIARY TYPING */
+const diaryMessage=`
+Dear Future Me,
+
+If you are reading this, pause for a second.
+
+I hope you remember how hard you tried,
+even when nobody noticed.
+Even when things felt uncertain.
+
+I hope you chose peace over pressure.
+I hope you stayed kind to yourself.
+And I really hope you didn’t give up.
+
+If life feels heavy right now,
+remember — you’ve survived worse.
+
+With quiet faith,
+— Me
+`;
+
+let index=0;
+const speed=45;
+
+function typeDiary(){
+  if(index<diaryMessage.length){
+    document.getElementById("diaryText").innerHTML+=diaryMessage.charAt(index);
+    index++;
+    setTimeout(typeDiary,speed);
+  }
+}
+
+function unlockDiary(){
+  const pass=document.getElementById("password").value;
+  const diary=document.getElementById("diaryPage");
+  const lock=document.getElementById("lockBox");
+  const error=document.getElementById("errorMsg");
+  const correctPassword="believe"; // 🔑 change if needed
+
+  if(pass===correctPassword){
+    lock.style.display="none";
+    diary.style.display="block";
+    typeDiary();
+  }else{
+    error.innerText="this page isn’t ready for you yet";
+  }
+}
+</script>
+
+</body>
+</html>
