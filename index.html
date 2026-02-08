@@ -13,21 +13,30 @@
   font-family:"Segoe UI", sans-serif;
 }
 
+/* 🔑 SCROLL FIX */
+html, body{
+  height:auto;
+  overflow-x:hidden;
+}
+
 body{
   background:linear-gradient(180deg,#0f172a,#1e1b4b,#312e81);
   color:#e5e7eb;
-  overflow-x:hidden;
-  overflow-y:auto;
 }
 
-/* HERO */
+/* HERO – OLD DESIGN */
 .hero{
-  padding:120px 20px 80px; /* ✅ NO 100vh */
+  min-height:100svh; /* 🔑 mobile safe */
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
   text-align:center;
+  padding:40px 20px;
 }
 
 .hero h1{
-  font-size:3rem;
+  font-size:3.2rem;
   font-weight:600;
   background:linear-gradient(to right,#60a5fa,#c084fc);
   -webkit-background-clip:text;
@@ -38,12 +47,9 @@ body{
   margin-top:15px;
   font-size:1.1rem;
   opacity:.85;
-  max-width:500px;
-  margin-left:auto;
-  margin-right:auto;
 }
 
-/* FLOW SECTION */
+/* FLOW SECTION – OLD */
 .flow{
   padding:80px 20px;
   max-width:1000px;
@@ -58,6 +64,7 @@ body{
   background:rgba(255,255,255,0.08);
   backdrop-filter:blur(14px);
   box-shadow:0 20px 40px rgba(0,0,0,0.3);
+  animation:float 6s ease-in-out infinite;
 }
 
 .moment h2{
@@ -80,10 +87,16 @@ body{
   text-align:center;
 }
 
-/* DIARY LOCK */
+@keyframes float{
+  0%{transform:translateY(0)}
+  50%{transform:translateY(-12px)}
+  100%{transform:translateY(0)}
+}
+
+/* DIARY LOCK – OLD */
 .diary-lock{
   max-width:400px;
-  margin:100px auto 0;
+  margin:80px auto 0;
   text-align:center;
   padding:40px;
   background:rgba(255,255,255,.06);
@@ -117,7 +130,7 @@ body{
   color:#fca5a5;
 }
 
-/* DIARY PAGE */
+/* DIARY PAGE – OLD LOOK */
 .diary-page{
   display:none;
   max-width:700px;
@@ -143,7 +156,7 @@ body{
 
 footer{
   text-align:center;
-  padding:40px 20px;
+  padding:30px;
   font-size:.9rem;
   opacity:.7;
 }
@@ -162,18 +175,19 @@ footer{
 <section class="hero">
   <h1>To My Future Self</h1>
   <p>
-    This space is quiet on purpose.  
-    It waits until you are ready.
+    This page is not for everyone.  
+    It waits quietly.
   </p>
 </section>
 
 <!-- FLOW -->
 <section class="flow">
+
   <div class="moment left">
     <h2>Right now</h2>
     <p>
-      I may not have everything figured out,  
-      but I am still trying — and that counts.
+      I don’t know everything yet,  
+      but I’m still trying.
     </p>
   </div>
 
@@ -181,15 +195,15 @@ footer{
     <h2>What I survived</h2>
     <p>
       Days that felt heavy,  
-      moments I thought I wouldn’t get through.
+      but didn’t break me.
     </p>
   </div>
 
   <div class="moment center">
-    <h2>Why this exists</h2>
+    <h2>For you</h2>
     <p>
-      This diary is here so you never forget  
-      who you were when no one was watching.
+      This exists so you never forget  
+      who you once were.
     </p>
   </div>
 
@@ -199,6 +213,7 @@ footer{
     <button onclick="unlockDiary()">unlock diary</button>
     <div class="error" id="errorMsg"></div>
   </div>
+
 </section>
 
 <!-- DIARY -->
@@ -215,21 +230,15 @@ const diaryMessage = `
 Dear Future Me,
 
 If you are reading this,
-slow down for a moment.
+remember how quietly strong you were.
 
-There was a time when you felt unsure,
-but you still showed up.
-You still tried.
-That mattered more than you knew.
-
-If life feels heavy right now,
-please remember —
-you have survived worse days than this.
+You showed up even when it was hard.
+That matters more than results.
 
 Be kind to yourself.
-You always deserved that.
+Always.
 
-— From the past
+— Me
 `;
 
 let index = 0;
@@ -253,7 +262,7 @@ function unlockDiary(){
     lock.style.display = "none";
     diary.style.display = "block";
     typeDiary();
-    diary.scrollIntoView({behavior:"smooth"}); /* ✅ auto scroll */
+    diary.scrollIntoView({behavior:"smooth"});
   }else{
     error.innerText = "this page isn’t ready for you yet";
   }
