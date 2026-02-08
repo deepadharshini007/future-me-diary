@@ -1,211 +1,276 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Future Me Diary</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Future Me Diary</title>
 
-  <style>
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      font-family:"Segoe UI", sans-serif;
-    }
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:"Segoe UI", sans-serif;
+}
 
-    body{
-      background:linear-gradient(180deg,#0f172a,#1e1b4b,#312e81);
-      color:#e5e7eb;
-      overflow-x:hidden;
-      overflow-y:auto; /* ✅ MOBILE SCROLL FIX */
-    }
+body{
+  background:linear-gradient(180deg,#0f172a,#1e1b4b,#312e81);
+  color:#e5e7eb;
+  overflow-x:hidden;
+  overflow-y:auto;
+}
 
-    /* HERO */
-    .hero{
-      min-height:100vh;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      align-items:center;
-      text-align:center;
-      padding:40px 20px;
-    }
+/* HERO */
+.hero{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:60px 20px;
+}
 
-    .hero h1{
-      font-size:3rem;
-      font-weight:600;
-      background:linear-gradient(to right,#60a5fa,#c084fc);
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
-    }
+.hero h1{
+  font-size:3rem;
+  font-weight:600;
+  background:linear-gradient(to right,#60a5fa,#c084fc);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
 
-    .hero p{
-      margin-top:15px;
-      font-size:1.1rem;
-      opacity:.85;
-      max-width:500px;
-    }
+.hero p{
+  margin-top:15px;
+  font-size:1.1rem;
+  opacity:.85;
+  max-width:500px;
+}
 
-    /* DIARY LOCK */
-    .diary-lock{
-      max-width:400px;
-      text-align:center;
-      padding:40px;
-      margin-top:40px;
-      background:rgba(255,255,255,.06);
-      backdrop-filter:blur(14px);
-      border-radius:25px;
-      box-shadow:0 20px 40px rgba(0,0,0,.4);
-    }
+/* FLOW SECTION */
+.flow{
+  padding:80px 20px;
+  max-width:1000px;
+  margin:auto;
+}
 
-    .diary-lock input{
-      width:100%;
-      padding:12px;
-      margin:15px 0;
-      border:none;
-      border-radius:20px;
-      outline:none;
-      text-align:center;
-    }
+.moment{
+  max-width:420px;
+  margin:80px 0;
+  padding:25px 30px;
+  border-radius:25px;
+  background:rgba(255,255,255,0.08);
+  backdrop-filter:blur(14px);
+  box-shadow:0 20px 40px rgba(0,0,0,0.3);
+  animation:float 6s ease-in-out infinite;
+}
 
-    .diary-lock button{
-      padding:10px 30px;
-      border:none;
-      border-radius:20px;
-      background:linear-gradient(to right,#60a5fa,#c084fc);
-      color:white;
-      cursor:pointer;
-    }
+.moment h2{
+  font-size:1.4rem;
+  margin-bottom:10px;
+  color:#c7d2fe;
+}
 
-    .error{
-      margin-top:10px;
-      font-size:.85rem;
-      color:#fca5a5;
-    }
+.moment p{
+  font-size:.95rem;
+  line-height:1.6;
+  opacity:.9;
+}
 
-    /* DIARY PAGE */
-    .diary-page{
-      display:none;
-      max-width:700px;
-      margin:80px auto;
-      padding:40px 30px;
-      background:rgba(255,255,255,.08);
-      backdrop-filter:blur(14px);
-      border-radius:25px;
-      box-shadow:0 20px 40px rgba(0,0,0,.35);
-      line-height:1.8;
-      font-size:1rem;
-    }
+.left{margin-right:auto;}
+.right{margin-left:auto;}
+.center{
+  margin-left:auto;
+  margin-right:auto;
+  text-align:center;
+}
 
-    #diaryText::after{
-      content:"|";
-      animation:blink 1s infinite;
-      margin-left:2px;
-    }
+@keyframes float{
+  0%{transform:translateY(0)}
+  50%{transform:translateY(-12px)}
+  100%{transform:translateY(0)}
+}
 
-    @keyframes blink{
-      0%{opacity:1}
-      50%{opacity:0}
-      100%{opacity:1}
-    }
+/* DIARY LOCK */
+.diary-lock{
+  max-width:400px;
+  margin:60px auto 0;
+  text-align:center;
+  padding:40px;
+  background:rgba(255,255,255,.06);
+  backdrop-filter:blur(14px);
+  border-radius:25px;
+  box-shadow:0 20px 40px rgba(0,0,0,.4);
+}
 
-    footer{
-      text-align:center;
-      padding:30px;
-      font-size:.9rem;
-      opacity:.7;
-    }
+.diary-lock input{
+  width:100%;
+  padding:12px;
+  margin:15px 0;
+  border:none;
+  border-radius:20px;
+  outline:none;
+  text-align:center;
+}
 
-    /* MOBILE FIX */
-    @media (max-width:768px){
-      .hero{
-        min-height:auto;
-        padding:80px 20px;
-      }
+.diary-lock button{
+  padding:10px 30px;
+  border:none;
+  border-radius:20px;
+  background:linear-gradient(to right,#60a5fa,#c084fc);
+  color:white;
+  cursor:pointer;
+}
 
-      .diary-page{
-        margin:40px 15px;
-        padding:30px 20px;
-      }
-    }
-  </style>
+.error{
+  margin-top:10px;
+  font-size:.85rem;
+  color:#fca5a5;
+}
+
+/* DIARY PAGE (CENTER MESSAGE) */
+.diary-page{
+  display:none;
+  max-width:700px;
+  margin:120px auto;
+  padding:40px 30px;
+  background:rgba(255,255,255,.08);
+  backdrop-filter:blur(14px);
+  border-radius:25px;
+  box-shadow:0 20px 40px rgba(0,0,0,.35);
+  line-height:1.8;
+}
+
+#diaryText::after{
+  content:"|";
+  animation:blink 1s infinite;
+}
+
+@keyframes blink{
+  0%{opacity:1}
+  50%{opacity:0}
+  100%{opacity:1}
+}
+
+footer{
+  text-align:center;
+  padding:30px;
+  font-size:.9rem;
+  opacity:.7;
+}
+
+/* MOBILE FIX */
+@media(max-width:768px){
+  .hero{min-height:auto;}
+  .moment{margin:40px auto;}
+  .diary-page{margin:60px 15px;}
+}
+</style>
 </head>
 
 <body>
 
-  <section class="hero">
-    <h1>To My Future Self</h1>
+<!-- HERO -->
+<section class="hero">
+  <h1>To My Future Self</h1>
+  <p>
+    This space is quiet on purpose.  
+    It waits until you are ready.
+  </p>
+</section>
+
+<!-- FLOW / LIFE MOMENTS -->
+<section class="flow">
+  <div class="moment left">
+    <h2>Right now</h2>
     <p>
-      This page is not for the world.  
-      It’s only for you — when you’re ready.
+      I may not have everything figured out,  
+      but I am still trying — and that counts.
     </p>
-
-    <div class="diary-lock" id="lockBox">
-      <input type="password" id="password" placeholder="enter the key" />
-      <button onclick="unlockDiary()">unlock</button>
-      <div class="error" id="errorMsg"></div>
-    </div>
-  </section>
-
-  <div class="diary-page" id="diaryPage">
-    <p id="diaryText"></p>
   </div>
 
-  <footer>
-    written quietly • preserved honestly
-  </footer>
+  <div class="moment right">
+    <h2>What I survived</h2>
+    <p>
+      Days that felt heavy,  
+      moments I thought I wouldn’t get through.
+    </p>
+  </div>
 
-  <script>
-    const diaryMessage = `
+  <div class="moment center">
+    <h2>Why this exists</h2>
+    <p>
+      This diary is here so you never forget  
+      who you were when no one was watching.
+    </p>
+  </div>
+
+  <!-- LOCK -->
+  <div class="diary-lock" id="lockBox">
+    <input type="password" id="password" placeholder="enter the key">
+    <button onclick="unlockDiary()">unlock diary</button>
+    <div class="error" id="errorMsg"></div>
+  </div>
+</section>
+
+<!-- DIARY MESSAGE CENTER -->
+<section class="flow diary-page" id="diaryPage">
+  <p id="diaryText"></p>
+</section>
+
+<footer>
+  written quietly • preserved honestly
+</footer>
+
+<script>
+const diaryMessage = `
 Dear Future Me,
 
 If you are reading this,
-take a moment before judging yourself.
+slow down for a moment.
 
-There was a time when you were unsure,
+There was a time when you felt unsure,
 but you still showed up.
 You still tried.
-That matters more than you remember.
+That mattered more than you knew.
 
-If things are heavy now,
-please be gentle with yourself.
-You are doing better than you think.
+If life feels heavy right now,
+please remember —
+you have survived worse days than this.
 
-No matter where you are,
-I hope you didn’t forget
-how strong you once were.
+Be kind to yourself.
+You always deserved that.
 
 — From the past
 `;
 
-    let index = 0;
-    const speed = 45;
+let index = 0;
+const speed = 45;
 
-    function typeDiary(){
-      if(index < diaryMessage.length){
-        document.getElementById("diaryText").innerHTML += diaryMessage.charAt(index);
-        index++;
-        setTimeout(typeDiary, speed);
-      }
-    }
+function typeDiary(){
+  if(index < diaryMessage.length){
+    document.getElementById("diaryText").innerHTML += diaryMessage.charAt(index);
+    index++;
+    setTimeout(typeDiary, speed);
+  }
+}
 
-    function unlockDiary(){
-      const pass = document.getElementById("password").value;
-      const diary = document.getElementById("diaryPage");
-      const lock = document.getElementById("lockBox");
-      const error = document.getElementById("errorMsg");
+function unlockDiary(){
+  const pass = document.getElementById("password").value;
+  const diary = document.getElementById("diaryPage");
+  const lock = document.getElementById("lockBox");
+  const error = document.getElementById("errorMsg");
 
-      const correctPassword = "believe"; // 🔑 change if you want
+  const correctPassword = "believe"; // change if you want
 
-      if(pass === correctPassword){
-        lock.style.display = "none";
-        diary.style.display = "block";
-        typeDiary();
-      } else {
-        error.innerText = "this page isn’t ready for you yet";
-      }
-    }
-  </script>
+  if(pass === correctPassword){
+    lock.style.display = "none";
+    diary.style.display = "block";
+    typeDiary();
+  }else{
+    error.innerText = "this page isn’t ready for you yet";
+  }
+}
+</script>
 
 </body>
 </html>
